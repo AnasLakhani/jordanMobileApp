@@ -47,6 +47,12 @@ class _CashierScreenState extends State<CashierScreen> {
                   final background = DecorationImage(
                     image: AssetImage(button.image),
                     fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(
+                          0.3), // Adjust the opacity value here (0.5 for 50% opacity)
+                      BlendMode
+                          .darken, // You can change the blend mode as needed
+                    ),
                   );
 
                   return GestureDetector(
@@ -63,42 +69,53 @@ class _CashierScreenState extends State<CashierScreen> {
                         // _orders.putIfAbsent(button, () => 1);
                       });
                     },
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        image: background,
-                      ),
-                      child: Stack(children: [
-                        Container(
-                            decoration: BoxDecoration(
-                                gradient: RadialGradient(radius: 1.5, colors: [
-                          Colors.black.withOpacity(0.35),
-                          Colors.transparent
-                        ]))),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                button.name,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.035,
-                                ),
-                              ),
-                              Text(
-                                '\$${button.price.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      MediaQuery.of(context).size.width * 0.035,
-                                ),
-                              ),
-                            ],
-                          ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          image: background,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ]),
+                        child: Stack(children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.circular(12),
+                              gradient: RadialGradient(radius: 1.5, colors: [
+                                Colors.black.withOpacity(0.25),
+                                Colors.transparent
+                              ]),
+                            ),
+                          ),
+                          Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  button.name,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.035,
+                                  ),
+                                ),
+                                Text(
+                                  '\$${button.price.toStringAsFixed(2)}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.035,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                      ),
                     ),
                   );
                 }),

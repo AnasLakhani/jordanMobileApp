@@ -56,10 +56,10 @@ void main() {
       await db.query('checkouts').then((rows) {
         if (rows.isEmpty) {
           db.transaction((txn) async {
-            for (var i = 0; i < 9; i++) {
+            for (var i = 0; i < 15; i++) {
               await txn.insert('checkouts', {
                 'name': 'Item ${i + 1}',
-                'image': 'assets/images/solid_blue.jpeg',
+                'image': 'assets/jordan/${i + 1}.jpeg',
                 'price': (i + 1) * 1.5,
               });
             }
