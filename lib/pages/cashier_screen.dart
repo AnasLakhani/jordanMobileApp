@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jhs_pop/main.dart';
+import 'package:jhs_pop/pages/dialog/user_info_dialog.dart';
 import 'package:jhs_pop/util/checkout_order.dart';
 import 'package:jhs_pop/util/constants.dart';
+import 'package:jhs_pop/util/navigation_service.dart';
 import 'package:jhs_pop/widgets/counter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +18,48 @@ class _CashierScreenState extends State<CashierScreen> {
   List<CheckoutOrder> _buttons = [];
   final Map<CheckoutOrder, int> _orders = {};
 
+  var sName = "";
+  var sGender = "";
+
+  Future<void> ss(isFirstTime) async {
+    var sharedPreferences = await SharedPreferences.getInstance();
+    if (isFirstTime) {
+      // Show user info dialog
+      await showDialog(
+        context: NavigationService.navigatorKey.currentContext!,
+        builder: (context) {
+          return UserInfoDialog(
+            onSubmitted: (name, gender) async {
+              sharedPreferences.setBool("isFirstTime", false);
+              sharedPreferences.setString("name", name);
+              sharedPreferences.setString("gender", gender);
+
+              sName = name;
+              sGender = gender;
+
+              // Handle user information
+              debugPrint('Name: $name, Gender: $gender');
+              // Continue with app initialization or navigation
+
+              setState(() {});
+            },
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> init() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+
+    bool isFirstTime = sharedPreferences.getBool("isFirstTime") ?? true;
+
+    await ss(isFirstTime);
+  }
+
   @override
   void initState() {
+    init();
     super.initState();
 
     dbReady.future.then((_) {
@@ -203,16 +245,37 @@ class _CashierScreenState extends State<CashierScreen> {
         drawer: Drawer(
           child: ListView(
             children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
+              DrawerHeader(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text(
-                  'Point of Payment',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Point of Payment',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      sName,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    Text(
+                      sGender,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               ListTile(
@@ -239,6 +302,12 @@ class _CashierScreenState extends State<CashierScreen> {
                 title: const Text('Credit Card Setup'),
                 onTap: () async {
                   Navigator.of(context).pushNamed('/setting');
+                },
+              ),
+              ListTile(
+                title: const Text('Change Name'),
+                onTap: () async {
+                  ss(true);
                 },
               ),
               ListTile(
