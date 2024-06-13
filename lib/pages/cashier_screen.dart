@@ -54,7 +54,15 @@ class _CashierScreenState extends State<CashierScreen> {
 
     bool isFirstTime = sharedPreferences.getBool("isFirstTime") ?? true;
 
-    await ss(isFirstTime);
+    if (isFirstTime) {
+      await ss(isFirstTime);
+      return;
+    }
+
+    sName = sharedPreferences.getString("name") ?? "";
+    sGender = sharedPreferences.getString("gender") ?? "";
+
+    setState(() {});
   }
 
   @override
@@ -278,12 +286,12 @@ class _CashierScreenState extends State<CashierScreen> {
                   ],
                 ),
               ),
-              ListTile(
-                title: const Text('Teacher Orders Screen'),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-              ),
+              // ListTile(
+              //   title: const Text('Teacher Orders Screen'),
+              //   onTap: () {
+              //     Navigator.pushReplacementNamed(context, '/home');
+              //   },
+              // ),
               ListTile(
                 title: const Text('Edit Options'),
                 onTap: () {

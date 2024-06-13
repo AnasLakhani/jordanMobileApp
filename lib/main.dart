@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jhs_pop/db/db_helper.dart';
 import 'package:jhs_pop/pages/cashier/cashier_order.dart';
 import 'package:jhs_pop/pages/cashier_screen.dart';
 import 'package:jhs_pop/pages/edit_options_page.dart';
-import 'package:jhs_pop/pages/home_page.dart';
-import 'package:jhs_pop/pages/load_order_page.dart';
-import 'package:jhs_pop/pages/manual_entry.dart';
+// import 'package:jhs_pop/pages/home_page.dart';
+// import 'package:jhs_pop/pages/load_order_page.dart';
+// import 'package:jhs_pop/pages/manual_entry.dart';
 import 'package:jhs_pop/pages/payment_screen.dart';
 import 'package:jhs_pop/pages/setting/setting_page.dart';
 import 'package:jhs_pop/pages/splash.dart';
@@ -69,17 +68,17 @@ void main() {
 
       // await db.execute(''' TRUNCATE TABLE  orders''');
 
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS orders (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT,
-          room TEXT,
-          additional TEXT,
-          frequency TEXT,
-          creamer TEXT,
-          sweetener TEXT
-        )
-      ''');
+      // await db.execute('''
+      //   CREATE TABLE IF NOT EXISTS orders (
+      //     id INTEGER PRIMARY KEY AUTOINCREMENT,
+      //     name TEXT,
+      //     room TEXT,
+      //     additional TEXT,
+      //     frequency TEXT,
+      //     creamer TEXT,
+      //     sweetener TEXT
+      //   )
+      // ''');
 
       await db.execute('''
     CREATE TABLE IF NOT EXISTS cashier_order (
@@ -112,8 +111,8 @@ void main() {
 
 final routes = <String, WidgetBuilder>{
   '/': (context) => const SplashScreen(),
-  '/home': (context) => const HomePage(),
-  '/manual': (context) => const NewItemPage(),
+  // '/home': (context) => const HomePage(),
+  // '/manual': (context) => const NewItemPage(),
   '/setting': (context) => const SettingPage(),
   '/cashierOrders': (context) => const CashierOrder(),
   '/payment': (context) {
@@ -127,7 +126,7 @@ final routes = <String, WidgetBuilder>{
       return PaymentScreen();
     }
   },
-  '/load_order': (context) => const LoadOrderPage(),
+  // '/load_order': (context) => const LoadOrderPage(),
   '/cashier': (context) => const CashierScreen(),
   '/edit_options': (context) => EditOptionsPage(
       buttons:

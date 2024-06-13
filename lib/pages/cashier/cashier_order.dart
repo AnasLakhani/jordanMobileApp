@@ -3,7 +3,7 @@ import 'package:jhs_pop/main.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CashierOrder extends StatefulWidget {
-  const CashierOrder({Key? key}) : super(key: key);
+  const CashierOrder({super.key});
 
   @override
   State<CashierOrder> createState() => _CashierOrderState();
@@ -73,7 +73,7 @@ class _CashierOrderState extends State<CashierOrder> {
                 _searchController.clear();
               });
             },
-            icon: Icon(Icons.clear),
+            icon: const Icon(Icons.clear),
           ),
         ],
         bottom: PreferredSize(
