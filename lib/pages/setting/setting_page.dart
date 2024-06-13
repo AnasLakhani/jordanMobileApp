@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:jhs_pop/main.dart';
+import 'package:jhs_pop/util/navigation_service.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -119,6 +120,8 @@ class _SettingPageState extends State<SettingPage> {
                 };
 
                 await db.insert('credit_cards', cardData);
+
+                Navigator.pop(NavigationService.navigatorKey.currentContext!);
 
                 print('Card saved to database');
               } else {

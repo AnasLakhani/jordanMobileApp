@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class UserInfoDialog extends StatefulWidget {
+  final String? name;
+  final String? gender;
   final Function(String, String) onSubmitted;
 
-  const UserInfoDialog({super.key, required this.onSubmitted});
+  const UserInfoDialog(
+      {super.key, required this.onSubmitted, this.name, this.gender});
 
   @override
   _UserInfoDialogState createState() => _UserInfoDialogState();
@@ -15,6 +18,8 @@ class _UserInfoDialogState extends State<UserInfoDialog> {
 
   @override
   void initState() {
+    _nameController.text = widget.name ?? "";
+    _selectedGender = widget.gender ?? "";
     super.initState();
   }
 

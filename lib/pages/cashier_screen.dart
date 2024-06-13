@@ -29,6 +29,8 @@ class _CashierScreenState extends State<CashierScreen> {
         context: NavigationService.navigatorKey.currentContext!,
         builder: (context) {
           return UserInfoDialog(
+            gender: sGender,
+            name: sName,
             onSubmitted: (name, gender) async {
               sharedPreferences.setBool("isFirstTime", false);
               sharedPreferences.setString("name", name);
@@ -303,12 +305,14 @@ class _CashierScreenState extends State<CashierScreen> {
               ListTile(
                 title: const Text('Orders'),
                 onTap: () async {
+                  Navigator.pop(context);
                   Navigator.of(context).pushNamed('/cashierOrders');
                 },
               ),
               ListTile(
                 title: const Text('Credit Card Setup'),
                 onTap: () async {
+                  Navigator.pop(context);
                   Navigator.of(context).pushNamed('/setting');
                 },
               ),
@@ -318,17 +322,17 @@ class _CashierScreenState extends State<CashierScreen> {
                   ss(true);
                 },
               ),
-              ListTile(
-                title: const Text('Make Default Screen'),
-                onTap: () {
-                  SharedPreferences.getInstance().then((prefs) {
-                    prefs.setString('default_screen', '/cashier');
-                    context.showSnackBar(
-                        message: 'Default screen set to cashier mode');
-                    Navigator.pop(context);
-                  });
-                },
-              ),
+              // ListTile(
+              //   title: const Text('Make Default Screen'),
+              //   onTap: () {
+              //     SharedPreferences.getInstance().then((prefs) {
+              //       prefs.setString('default_screen', '/cashier');
+              //       context.showSnackBar(
+              //           message: 'Default screen set to cashier mode');
+              //       Navigator.pop(context);
+              //     });
+              //   },
+              // ),
             ],
           ),
         ));
